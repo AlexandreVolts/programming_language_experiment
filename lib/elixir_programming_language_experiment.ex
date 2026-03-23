@@ -1,18 +1,17 @@
 defmodule ElixirProgrammingLanguageExperiment do
-  @moduledoc """
-  Documentation for `ElixirProgrammingLanguageExperiment`.
-  """
+  use Application
 
-  @doc """
-  Hello world.
+  def start(_type, _args) do
+    base = IO.gets("Please enter a base (default: 0123456789): ")
 
-  ## Examples
+    IO.gets("Please enter an expression: ")
+    |> ShuttingYardAlgo.compute(
+      if base === "\n",
+      do: "0123456789",
+      else: base
+    )
+    |> IO.puts()
 
-      iex> ElixirProgrammingLanguageExperiment.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    Supervisor.start_link([], strategy: :one_for_one)
   end
 end
